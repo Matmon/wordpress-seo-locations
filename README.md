@@ -147,7 +147,7 @@ Why did you use the geocoding API to retrieve the latitude and longitude for eac
 
 This plugin was developed by:
 
-- @smelimberg, Software Developer for [Matmon Internet Inc.](http://www.matmon.com).
+- [Steven Leimberg](https://github.com/smleimberg), Software Developer for [Matmon Internet Inc.](http://www.matmon.com).
 
 ##License
 
