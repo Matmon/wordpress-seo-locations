@@ -2,7 +2,7 @@
 
 WordPress SEO Locations was built by developers, for developers. This plugin makes it easy to display one or multiple locations with proper Schema.org markup, Google Static Map images, and links to directions in Google Maps. Our goal is to provide WordPress developers a bare bones SEO location plugin that just works. There are no styles to override, and customizing the HTML output is quick and simple.
 
-Please read [The Google Geocoding API Documentation](https://developers.google.com/maps/documentation/geocoding/) and [The Static Maps API Documentation](https://developers.google.com/maps/documentation/staticmaps/) regarding API key requirements, and usage limits. Although API keys are not required to use this plugin, it is highly suggested. We are working on building a caching solution that complies with Google's Terms of Service to help alleviate Google Static Maps usage limits in the future. Also, order to cut down on the number of geocode requests per second, we only request data for locations upon saving (Post and Update) each location.
+Please read [The Google Geocoding API Documentation](https://developers.google.com/maps/documentation/geocoding/) and [The Static Maps API Documentation](https://developers.google.com/maps/documentation/staticmaps/) regarding API key requirements, and usage limits. Although API keys are not required to use this plugin, it is highly suggested. We are working on building a caching solution that complies with Google's Terms of Service to help alleviate Google Static Maps usage limits in the future. Also, in order to cut down on the number of geocode requests per second, we only request data for locations upon saving (Post and Update) each location.
 
 ##Locations
 
