@@ -143,6 +143,12 @@ Why did you use the geocoding API to retrieve the latitude and longitude for eac
 
 >While we could have easily passed the location's address into the Static Maps URL, we recognized that our future plans of implementing embeded JavaScript maps would require a latitude & longitude. Since calls to the geocoding service only happen when you "Post" or "Update" a location, unless you are doing something fishy, it's highly unlikely you will exceed usage limits.
 
+##Contributors
+
+This plugin was developed by:
+
+- @smelimberg, Software Developer for [Matmon Internet Inc.](http://www.matmon.com).
+
 ##License
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License, version 2, as published by the Free Software Foundation.
