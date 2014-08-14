@@ -154,7 +154,7 @@ Below is a formatted/readable example of the output for a single location:
 
 ##Customize!
 
-We built this plugin with developers and custom themes in mind. If you don't like the way the HTML for each location is generated, change it! Just copy and paste the `print_wpseo_locations()` function at the bottom of `/wp-seo-locations/wp-seo-locations.php` into your theme's `functions.php` file, change it's name, customize the HTML to suit your specific needs, and your all set. Check out the example below:
+We built this plugin with developers and custom themes in mind. If you don't like the way the HTML for each location is generated, change it! Just copy and paste the `print_wpseo_locations()` function at the bottom of `/wp-seo-locations/wp-seo-locations.php` into your theme's `functions.php` file, change it's name, and customize the HTML to suit your specific needs. Check out the example below:
 
 ###Our Function:
 
