@@ -14,6 +14,8 @@ delete_post_meta_by_key('wpseol_addressLocality');
 delete_post_meta_by_key('wpseol_addressRegion');
 delete_post_meta_by_key('wpseol_postalCode');
 delete_post_meta_by_key('wpseol_addressCountry');
+delete_post_meta_by_key('wpseol_telephoneNumber');
+delete_post_meta_by_key('wpseol_faxNumber');
 delete_post_meta_by_key('wpseol_latitude');
 delete_post_meta_by_key('wpseol_longitude');
 delete_post_meta_by_key('wpseol_full_text_address');

@@ -71,24 +71,39 @@ add_filter('plugin_action_links', 'add_settings_link', 10, 2 );
 function location_custom_fields(){
 	return array(
 		'wpseol_streetAddress'=>array(
+			'type'=>'text',
 			'label'=>'Street Address',
 			'description'=>'Example: 303 West Capitol Ave.'
 		),
 		'wpseol_addressLocality'=>array(
+			'type'=>'text',
 			'label'=>'Locality / City',
 			'description'=>'Example: Little Rock'
 		),
 		'wpseol_addressRegion'=>array(
+			'type'=>'text',
 			'label'=>'Region / State',
 			'description'=>'Example: AR'
 		),
 		'wpseol_postalCode'=>array(
+			'type'=>'text',
 			'label'=>'Postal Code',
 			'description'=>'Example: 72201'
 		),
 		'wpseol_addressCountry'=>array(
+			'type'=>'text',
 			'label'=>'Country',
 			'description'=>'Example: USA. You can also provide the two-letter <a href="http://en.wikipedia.org/wiki/ISO_3166-1" >ISO 3166-1 alpha-2 country code</a>.'
+		),
+		'wpseol_telephoneNumber'=>array(
+			'type'=>'number',
+			'label'=>'Telephone Number',
+			'description'=>'Example: 5013754999'
+		),
+		'wpseol_faxNumber'=>array(
+			'type'=>'number',
+			'label'=>'Fax Number',
+			'description'=>'Example: 5016870192'
 		)
 	);
 }
@@ -152,7 +167,7 @@ function location_meta_form($post) {
 		$text = isset($values[$key])? esc_attr( $values[$key][0] ) : ''; ?>
     <tr valign="top">
     	<th scope="row" style="text-align:right;"><label for="<?php echo $key; ?>"><?php echo $value['label']; ?>:</label></th>
-  		<td><input type="text" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $text; ?>" style="width:100%;"/><p><?php echo $value['description']; ?></p></td>
+  		<td><input type="<?php echo $value['type']; ?>" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $text; ?>" style="width:100%;"/><p><?php echo $value['description']; ?></p></td>
   	</tr>
     <?php
 	} ?>
@@ -204,7 +219,9 @@ function save_location_data($id) {
   foreach ($fields as $key => $value) { //update the DB meta data
   	if(isset($_POST[$key])){
   		update_post_meta( $id, $key, wp_kses($_POST[$key], $allowed) );
-  		$address .= $_POST[$key].' ';
+  		if($key != 'wpseol_telephoneNumber' && $key != 'wpseol_faxNumber'){
+  			$address .= $_POST[$key].' ';
+  		}
   	}
   }
   update_post_meta( $id, 'wpseol_full_text_address', $address);
@@ -236,23 +253,14 @@ function get_wpseo_locations($ids){
 		if(!is_array($ids)) $ids = explode(',',$ids);
 		$wp_locations = get_posts(array('post_type'=>'locations','orderby'=>'post_date','order'=>'DESC','post__in'=>$ids));
 	}
+	$fields = location_custom_fields();
 	$wp_locations_count = count($wp_locations);
 	for($i=0;$i<$wp_locations_count;$i++){
 
-		$addressCountry = get_post_meta($wp_locations[$i]->ID,'wpseol_addressCountry',true);
-		$wp_locations[$i]->addressCountry = !empty($addressCountry)? $addressCountry : false;
-
-		$addressLocality = get_post_meta($wp_locations[$i]->ID,'wpseol_addressLocality',true);
-		$wp_locations[$i]->addressLocality = !empty($addressLocality)? $addressLocality : false;
-
-		$addressRegion = get_post_meta($wp_locations[$i]->ID,'wpseol_addressRegion',true);
-		$wp_locations[$i]->addressRegion = !empty($addressRegion)? $addressRegion : false;
-
-		$postalCode = get_post_meta($wp_locations[$i]->ID,'wpseol_postalCode',true);
-		$wp_locations[$i]->postalCode = !empty($postalCode)? $postalCode : false;
-
-		$streetAddress = get_post_meta($wp_locations[$i]->ID,'wpseol_streetAddress',true);
-		$wp_locations[$i]->streetAddress = !empty($streetAddress)? $streetAddress : false;
+		$values = get_post_custom($wp_locations[$i]->ID);
+		foreach ($fields as $key => $value){
+			$wp_locations[$i]->$key = !empty($values[$key])? $values[$key][0] : false;
+		}
 
 		$latitude = get_post_meta($wp_locations[$i]->ID,'wpseol_latitude',true);
 		$wp_locations[$i]->latitude = !empty($latitude)? $latitude : false;
@@ -269,39 +277,47 @@ function get_wpseo_locations($ids){
 	return $wp_locations;
 }
 
+function format_phone_number($phone_number){
+	if(  preg_match( "/^(\d{3})(\d{3})(\d{4})$/", $phone_number,  $matches ) )
+	{
+	    $result = $matches[1] . '-' .$matches[2] . '-' . $matches[3];
+	    return $result;
+	}
+}
 
   /*****************************/
  /**** PRINT LOCATION HTML ****/
 /*****************************/
 add_shortcode( 'wpseol', 'print_wpseo_locations' );
-function print_wpseo_locations($atts, $content = null){
+function print_wpseo_locations($atts=null, $content = null){
 	$attributes = shortcode_atts( array(
       'ids' => null,
       'titles' => false,
       'maps'=> false,
+      'phones'=> false,
+      'faxes'=> false,
       'classes' => ''
   ), $atts );
 	$locations = get_wpseo_locations($attributes['ids']);
 	$locations_count = count($locations);
 	ob_start();
-	for($i=0;$i<$locations_count;$i++){
-		if(  !empty($locations[$i]->addressLocality)
-			|| !empty($locations[$i]->addressRegion)
-		  || !empty($locations[$i]->streetAddress)
-		  || !empty($locations[$i]->postalCode) 
-		  || !empty($locations[$i]->addressCountry) ){ ?>
-			<a id="location_<?php echo $locations[$i]->ID; ?>" class="location <?php echo $attributes['classes']; ?>" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" href="<?php echo $locations[$i]->google_map_url; ?>"><?php
+	for($i=0;$i<$locations_count;$i++){ ?>
+	  <div id="location_<?php echo $locations[$i]->ID; ?>" class="location <?php echo $attributes['classes']; ?>" itemscope itemtype="http://schema.org/Place"><?php
+	  	echo ( ($attributes['titles']===true || $attributes['titles']==='true') && !empty($locations[$i]->post_title) )? '<span itemprop="name" class="name">'.$locations[$i]->post_title.'</span> ' : ''; ?>
+			<a class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" href="<?php echo $locations[$i]->google_map_url; ?>"><?php
 				echo ( ($attributes['maps']===true || $attributes['maps']==='true') && $locations[$i]->google_map_image_url )? '<img itemprop="image" class="map" src="'.$locations[$i]->google_map_image_url.'" title="Google Map" alt="Google Map">' : '';
-				echo ( ($attributes['titles']===true || $attributes['titles']==='true') && !empty($locations[$i]->post_title) )? '<span itemprop="name" class="name">'.$locations[$i]->post_title.'</span> ' : '';
-			  echo $locations[$i]->streetAddress? '<span itemprop="streetAddress" class="streetAddress">'.$locations[$i]->streetAddress.'</span> ' : '';
-			  echo $locations[$i]->addressLocality? '<span itemprop="addressLocality" class="addressLocality">'.$locations[$i]->addressLocality.'</span>' : '';
-			  echo ($locations[$i]->addressLocality && $locations[$i]->addressRegion)? ', ': '';
-			  echo $locations[$i]->addressRegion? '<span itemprop="addressRegion" class="addressRegion">'.$locations[$i]->addressRegion.'</span> ' : '';
-			  echo $locations[$i]->postalCode? '<span itemprop="postalCode" class="postalCode">'.$locations[$i]->postalCode.'</span> ' : '';
-			  echo $locations[$i]->addressCountry? '<span itemprop="addressCountry" class="addressCountry">'.$locations[$i]->addressCountry.'</span>' : '';
+			  echo $locations[$i]->wpseol_streetAddress? '<span itemprop="streetAddress" class="streetAddress">'.$locations[$i]->wpseol_streetAddress.'</span> ' : '';
+			  echo $locations[$i]->wpseol_addressLocality? '<span itemprop="addressLocality" class="addressLocality">'.$locations[$i]->wpseol_addressLocality.'</span>' : '';
+			  echo ($locations[$i]->wpseol_addressLocality && $locations[$i]->wpseol_addressRegion)? ', ': '';
+			  echo $locations[$i]->wpseol_addressRegion? '<span itemprop="addressRegion" class="addressRegion">'.$locations[$i]->wpseol_addressRegion.'</span> ' : '';
+			  echo $locations[$i]->wpseol_postalCode? '<span itemprop="postalCode" class="postalCode">'.$locations[$i]->wpseol_postalCode.'</span> ' : '';
+			  echo $locations[$i]->wpseol_addressCountry? '<span itemprop="addressCountry" class="addressCountry">'.$locations[$i]->wpseol_addressCountry.'</span>' : '';
 			  ?>
 			</a><?php
-		}
+			echo ( ($attributes['phones']===true || $attributes['phones']==='true') && $locations[$i]->wpseol_telephoneNumber )? '<a href="tel:'.$locations[$i]->wpseol_telephoneNumber.'" class="telephone" title="'.$locations[$i]->wpseol_telephoneNumber.'" itemprop="telephone">'.format_phone_number($locations[$i]->wpseol_telephoneNumber).'</a>':'';
+			echo ( ($attributes['faxes']===true || $attributes['faxes']==='true') && $locations[$i]->wpseol_faxNumber )? '<a href="tel:'.$locations[$i]->wpseol_faxNumber.'" class="faxNumber" title="'.$locations[$i]->wpseol_faxNumber.'" itemprop="faxNumber">'.format_phone_number($locations[$i]->wpseol_faxNumber).'</a>':''; ?>
+		</div>
+		<?php
 	}
 	echo ob_get_clean();
 }

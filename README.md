@@ -15,6 +15,8 @@ This plugins creates the "Locations" post type with just the options you need to
  - Region / State
  - Postal Code
  - Country
+ - Telephone Number
+ - Fax Number
 
 ##Settings
 
@@ -60,11 +62,17 @@ Displaying locations is easy. Just use the `[wpseol]` shortcode or call the `pri
     //with maps
     [wpseol maps="true"]
 
+    //with phone numbers
+    [wpseol phones="true"]
+
+    //with fax numbers
+    [wpseol faxes="true"]
+
     //with classes
     [wpseol classes="small-12 medium-6 large-3 columns"]
 
     //All options
-    [wpseol ids="154,122" titles="true" maps="true" classes="small-12 medium-6 large-3 columns"]
+    [wpseol ids="154,122" titles="true" maps="true" phones="true" faxes="true" classes="small-12 medium-6 large-3 columns"]
 
 ###print_wpseo_locations():
 
@@ -79,35 +87,70 @@ Displaying locations is easy. Just use the `[wpseol]` shortcode or call the `pri
 
     //with maps
     print_wpseo_locations(array('maps'=>true));
+    
+    //with phone numbers
+    print_wpseo_locations(array('phones'=>true));
+
+    //with fax numbers
+    print_wpseo_locations(array('faxes'=>true));
 
     //with classes
     print_wpseo_locations(array('classes'=>'small-12 medium-6 large-3 columns'));
 
     //All options
-    print_wpseo_locations(array('ids'=>array(153,154),'titles'=>true,'maps'=>true,'classes'=>'small-12 medium-6 large-3 columns'));
+    print_wpseo_locations(array('ids'=>array(153,154),'titles'=>true,'maps'=>true,'phones'=>true,'faxes'=>true,'classes'=>'small-12 medium-6 large-3 columns'));
 
 ###Example Output
 
 Below is a formatted/readable example of the output for a single location:
 
-    <a id="location_156" 
-      class="location clearfix" 
-      itemprop="address" 
-      itemscope
-      itemtype="http://schema.org/PostalAddress"
-      href="https://www.google.com/maps/dir/303 W Capitol Ave. Little Rock AR 72201 USA">
-	    <img itemprop="image" 
-	      class="map" 
-	      src="https://maps.googleapis.com/maps/api/staticmap?zoom=15&amp;size=320x320&amp;maptype=roadmap&amp;format=png8&amp;markers=color:0xFB7064|34.744255,-92.273871"
-	      title="Google Map"
-	      alt="Google Map">
-    	<span itemprop="name" class="name">Main Office</span>
-    	<span itemprop="streetAddress" class="streetAddress">303 W Capitol Ave.</span>
-    	<span itemprop="addressLocality" class="addressLocality">Little Rock</span>, 
-     	<span itemprop="addressRegion" class="addressRegion">AR</span> 
-     	<span itemprop="postalCode" class="postalCode">72201</span>
-     	<span itemprop="addressCountry" class="addressCountry">USA</span>
-    </a>
+    <div 
+      id="location_156" 
+      class="location large-6 columns" 
+      itemscope="" 
+      itemtype="http://schema.org/Place">
+        <span itemprop="name" class="name">Main Office</span>
+        <a 
+          class="address" 
+          itemprop="address"
+          itemscope="" 
+          itemtype="http://schema.org/PostalAddress"
+          href="https://www.google.com/maps/dir/303 W. Capitol Ave. Little Rock, AR 72201">
+            <img 
+             itemprop="image"
+             class="map"
+             src="https://maps.googleapis.com/maps/api/staticmap?zoom=15&amp;size=320x320&amp;maptype=roadmap&amp;format=png8&amp;markers=color:0xFB7064|34.744255,-92.273871"
+             title="Google Map"
+             alt="Google Map">
+            <span 
+              itemprop="streetAddress"
+              class="streetAddress">
+              303 W. Capitol Ave.
+            </span>
+            <span 
+              itemprop="addressLocality"
+              class="addressLocality">
+              Little Rock
+            </span>,
+            <span 
+              itemprop="addressRegion"
+              class="addressRegion">
+              AR
+            </span>
+            <span
+              itemprop="postalCode"
+              class="postalCode">
+              72201
+            </span>
+        </a>
+        <a
+          href="tel:5012217888"
+          class="telephone"
+          title="5012217888"
+          itemprop="telephone">
+          501-221-7888
+        </a>
+    </div>
 
 ##Customize!
 

@@ -21,7 +21,12 @@ A. While we could have easily passed the location\'s address into the Static Map
 2. https://github.com/Matmon/wordpress-seo-locations/raw/master/images/settings.png
 
 == Changelog ==
-Extreme Alpha
+0.0.2
+ - schema.org/Place with address, not just schema.org/PostalAddress.
+ - Telephone Number
+ - Fax Number
+
+Extreme Alpha 0.0.1
  - Locations Post Type
  - Settings Page
  - Schema.org markup
