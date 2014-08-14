@@ -46,7 +46,7 @@ Installation is just like any other WordPress plugin. Just drop the `wp-seo-loca
 
 ##Usage
 
-Displaying locations is easy. Just use the `[wpseol]` shortcode or call the `print_wpseo_locations()` function in your theme. By default, both options print all locations. If you want to be more specific, use the `ids` option to specify which locations to print. Maps, and Location titles are not printed by default, but can be easily enabled using the `titles` and `maps` options. Last, but not least, use the `classes` option to add classes to each location. Here are some examples:
+Displaying locations is easy. Just use the `[wpseol]` shortcode or call the `print_wpseo_locations()` function in your theme. By default, both options print all locations. If you want to be more specific, use the `ids` option to specify which locations to print. Location titles, Maps, Fax Numbers, and Telephone numbers are not printed by default, but can be easily enabled using the `titles`, `maps`, `phones`, and `faxes` options. Last, but not least, use the `classes` option to add classes to each location. Here are some examples:
 	
 ###[wpseol]:
 
