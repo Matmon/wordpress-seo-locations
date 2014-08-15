@@ -1,7 +1,7 @@
 === WordPress SEO Locations ===
 Contributors: smleimberg
 Tags: schema.org, seo, location, address, map, google
-Stable tag: 0.0.7
+Stable tag: 0.0.8
 Tested up to: 3.9.1
 License: GPL
 License URI: https://www.gnu.org/licenses/gpl.txt
@@ -40,7 +40,7 @@ Version 0.0.2 uses schema.org/Place with an address attribute, instead of just u
 
 == Changelog ==
 
-= 0.0.3 to 0.0.7=
+= 0.0.3 to 0.0.8=
 Working on the Deployment process and adding screenshots to wordpress.org
 
 = 0.0.2 =
