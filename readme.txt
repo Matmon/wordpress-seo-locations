@@ -40,14 +40,8 @@ Version 0.0.2 uses schema.org/Place with an address attribute, instead of just u
 
 == Changelog ==
 
-= 0.0.6 =
-Testing New Release
-= 0.0.5 =
-Testing New Release
-= 0.0.4 =
-Testing New Release
-= 0.0.3 =
-Testing New Release
+= 0.0.3 to 0.0.7=
+Working on the Deployment process and adding screenshots to wordpress.org
 
 = 0.0.2 =
 - schema.org/Place with address, not just schema.org/PostalAddress.
