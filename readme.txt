@@ -37,7 +37,11 @@ WordPress SEO Locations was built by developers, for developers. Over at [Matmon
 
 == Upgrade Notice ==
 
-Version 0.0.2 uses schema.org/Place with an address attribute, instead of just using schema.org/PostalAddress. We have also added a telephone and fax number field for each location with proper schema.org markup for each schema.org/Place.
+= 0.0.2 =
+
+	- schema.org/Place with address, not just schema.org/PostalAddress.
+	- Telephone Number
+	- Fax Number
 
 == Changelog ==
 
