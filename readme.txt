@@ -1,7 +1,7 @@
 === WordPress SEO Locations ===
 Contributors: smleimberg
 Tags: schema.org, seo, location, address, map, google
-Stable tag: 0.0.6
+Stable tag: 0.1.0
 Tested up to: 3.9.1
 License: GPL
 License URI: https://www.gnu.org/licenses/gpl.txt
@@ -31,14 +31,17 @@ WordPress SEO Locations was built by developers, for developers. Over at [Matmon
 >While we could have easily passed the location\'s address into the Static Maps URL, we recognized that our future plans of implementing embeded JavaScript maps would require a latitude & longitude. Since calls to the geocoding service only happen when you \"Post\" or \"Update\" a location, unless you are doing something fishy, it\'s highly unlikely you will exceed usage limits.
 
 == Screenshots ==
-1. edit_location.png
-2. settings.png
+1. Each location has it's own Street Address, City, State, Zip, Telephone and Fax fields.
+2. Set up Google Api Keys, Map Type, Image Type, Pin Color, Map Width, Map Height, and Map Zoom in settings.
 
 == Upgrade Notice ==
 
 Version 0.0.2 uses schema.org/Place with an address attribute, instead of just using schema.org/PostalAddress. We have also added a telephone and fax number field for each location with proper schema.org markup for each schema.org/Place.
 
 == Changelog ==
+
+= 0.1.0 =
+Use Google API Keys if provided
 
 = 0.0.3 to 0.0.8 =
 Working on the Deployment process and adding screenshots to wordpress.org
