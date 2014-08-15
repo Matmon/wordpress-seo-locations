@@ -3,7 +3,7 @@
  * Plugin Name: WordPress SEO Locations
  * Plugin URI: https://github.com/Matmon/wordpress-seo-locations
  * Description: WordPress SEO Locations displays one or multiple locations with proper Schema.org markup, Google Static Map images, and links to directions in Google Maps.
- * Version: 0.0.8
+ * Version: 0.1.0
  * Author: Matmon
  * Author URI: www.matmon.com
  *
@@ -182,10 +182,14 @@ add_action( 'add_meta_boxes', 'location_custom_fields_add' );
  /**** SAVE LOCATIONS CUSTOM FIELDS ****/
 /**************************************/
 class wpseolgeocoder{
-  static private $url = 'http://maps.google.com/maps/api/geocode/json?sensor=false';
+  static private $url = '//maps.google.com/maps/api/geocode/json?sensor=false';
   static public function getLocation($address,$key){
-    $url = self::$url.urlencode('&address='.$address);
-    if($key) self::$url.urlencode('&key='.$key);
+    $url = self::$url.'&address='.urlencode($address);
+    if($key){
+    	$url = 'https:'.$url.'&key='.urlencode($key);
+    }else{
+    	$url = 'http:'.$url;
+    }
     $resp_json = self::curl_file_get_contents($url);
     $resp = json_decode($resp_json, true);
     if($resp['status']='OK'){
@@ -228,7 +232,7 @@ function save_location_data($id) {
   update_post_meta( $id, 'wpseol_full_text_address', $address);
   $geocoding_api_key = get_option('wpseol_google_geocoding_api_key');
   $geocoding_api_key = (!empty($geocoding_api_key))? $geocoding_api_key:false;
-  $geocode = wpseolgeocoder::getLocation($address,$geocoding_api_key);
+  $geocode = wpseolgeocoder::getLocation(trim($address),$geocoding_api_key);
 	if($geocode){
 		update_post_meta( $id, 'wpseol_latitude', $geocode['lat']);
 		update_post_meta( $id, 'wpseol_longitude', $geocode['lng']);
@@ -250,6 +254,8 @@ function get_wpseo_locations($ids){
 	$map_zoom = get_option('wpseol_map_zoom');
 	$map_type = get_option('wpseol_map_type');
 	$image_type = get_option('wpseol_image_type');
+	$google_static_maps_api_key = get_option('wpseol_google_static_maps_api_key');
+	$google_static_maps_api_key = !empty($google_static_maps_api_key)? '&key='.$google_static_maps_api_key : '';
 	if(empty($ids) || $ids==null || $ids==''){ //get meta of all locations if no $ids are provided
 		$wp_locations = get_posts(array('post_type'=>'locations','orderby'=>'post_date','order'=>'DESC'));
 	}else{
@@ -274,7 +280,9 @@ function get_wpseo_locations($ids){
 		$full_text_address = get_post_meta($wp_locations[$i]->ID,'wpseol_full_text_address',true);
 		$wp_locations[$i]->full_text_address = !empty($full_text_address)? $full_text_address : false;
 
-		$wp_locations[$i]->google_map_image_url = 'https://maps.googleapis.com/maps/api/staticmap?zoom='.$map_zoom.'&size='.$map_width.'x'.$map_height.'&maptype='.$map_type.'&format='.$image_type.'&markers=color:0x'.$pin_color.'|'.$latitude.','.$longitude;
+
+
+		$wp_locations[$i]->google_map_image_url = 'https://maps.googleapis.com/maps/api/staticmap?zoom='.$map_zoom.$google_static_maps_api_key.'&size='.$map_width.'x'.$map_height.'&maptype='.$map_type.'&format='.$image_type.'&markers=color:0x'.$pin_color.'|'.$latitude.','.$longitude;
 		$wp_locations[$i]->google_map_url = 'https://www.google.com/maps/dir/'.$full_text_address;
 	}
 	return $wp_locations;
