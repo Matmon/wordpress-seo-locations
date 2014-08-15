@@ -31,8 +31,8 @@ WordPress SEO Locations was built by developers, for developers. Over at [Matmon
 >While we could have easily passed the location\'s address into the Static Maps URL, we recognized that our future plans of implementing embeded JavaScript maps would require a latitude & longitude. Since calls to the geocoding service only happen when you \"Post\" or \"Update\" a location, unless you are doing something fishy, it\'s highly unlikely you will exceed usage limits.
 
 == Screenshots ==
-1. https://github.com/Matmon/wordpress-seo-locations/raw/master/images/edit_location.png
-2. https://github.com/Matmon/wordpress-seo-locations/raw/master/images/settings.png
+1. edit_location.png
+2. settings.png
 
 == Upgrade Notice ==
 
