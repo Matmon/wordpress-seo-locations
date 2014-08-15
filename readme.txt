@@ -1,7 +1,7 @@
 === WordPress SEO Locations ===
 Contributors: smleimberg
-Tags:         schema.org, seo, location, address, map, google
-Stable tag:   0.1.0
+Tags: schema.org, seo, location, address, map, google
+Stable tag: 0.1.0
 Tested up to: 3.9.1
 License:      GPL
 License URI:  https://www.gnu.org/licenses/gpl.txt
@@ -39,6 +39,9 @@ WordPress SEO Locations was built by developers, for developers. Over at [Matmon
 Version 0.0.2 uses schema.org/Place with an address attribute, instead of just using schema.org/PostalAddress. We have also added a telephone and fax number field for each location with proper schema.org markup for each schema.org/Place.
 
 == Changelog ==
+
+= 0.1.0 =
+Use Google API Keys if provided
 
 = 0.0.3 to 0.0.8 =
 Working on the Deployment process and adding screenshots to wordpress.org
