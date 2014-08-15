@@ -1,10 +1,10 @@
 === WordPress SEO Locations ===
 Contributors: smleimberg
-Tags:         schema.org, seo, location, address, map, google
-Stable tag:   0.1.0
-Tested up to: 3.9.1
-License:      GPL
-License URI:  https://www.gnu.org/licenses/gpl.txt
+Tags: schema.org, seo, location, address, map, google
+Stable tag: 0.0.5
+Tested up to: 3.9.1	
+License: GPL
+License URI: https://www.gnu.org/licenses/gpl.txt
 
 This plugin makes it easy to display locations with proper Schema.org markup, Google Static Map images, and links to directions in Google Maps.
 
