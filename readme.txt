@@ -40,9 +40,6 @@ Version 0.0.2 uses schema.org/Place with an address attribute, instead of just u
 
 == Changelog ==
 
-= 0.1.0 =
-Use Google API Keys if provided
-
 = 0.0.3 to 0.0.8 =
 Working on the Deployment process and adding screenshots to wordpress.org
 
