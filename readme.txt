@@ -1,14 +1,10 @@
 === WordPress SEO Locations ===
 Contributors: smleimberg
-Tags: schema.org, seo, location, address, map, google
-<<<<<<< HEAD
-Stable tag: 0.0.7
-=======
-Stable tag: 0.1.0
->>>>>>> use the google api keys
+Tags:         schema.org, seo, location, address, map, google
+Stable tag:   0.1.0
 Tested up to: 3.9.1
-License: GPL
-License URI: https://www.gnu.org/licenses/gpl.txt
+License:      GPL
+License URI:  https://www.gnu.org/licenses/gpl.txt
 
 This plugin makes it easy to display locations with proper Schema.org markup, Google Static Map images, and links to directions in Google Maps.
 
@@ -35,14 +31,8 @@ WordPress SEO Locations was built by developers, for developers. Over at [Matmon
 >While we could have easily passed the location\'s address into the Static Maps URL, we recognized that our future plans of implementing embeded JavaScript maps would require a latitude & longitude. Since calls to the geocoding service only happen when you \"Post\" or \"Update\" a location, unless you are doing something fishy, it\'s highly unlikely you will exceed usage limits.
 
 == Screenshots ==
-<<<<<<< HEAD
-
-1. edit_location.png
-2. settings.png
-=======
 1. Each location has it's own Street Address, City, State, Zip, Telephone and Fax fields.
 2. Set up Google Api Keys, Map Type, Image Type, Pin Color, Map Width, Map Height, and Map Zoom in settings.
->>>>>>> use the google api keys
 
 == Upgrade Notice ==
 

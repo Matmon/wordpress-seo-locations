@@ -3,9 +3,9 @@
  * Plugin Name: WordPress SEO Locations
  * Plugin URI:  https://github.com/Matmon/wordpress-seo-locations
  * Description: WordPress SEO Locations displays one or multiple locations with proper Schema.org markup, Google Static Map images, and links to directions in Google Maps.
- * Version: 0.1.0
- * Author: Matmon
- * Author URI: www.matmon.com
+ * Version:     0.1.0
+ * Author:      Matmon
+ * Author URI:  www.matmon.com
  *
  ****************************************************************************
  *
