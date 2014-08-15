@@ -182,14 +182,10 @@ add_action( 'add_meta_boxes', 'location_custom_fields_add' );
  /**** SAVE LOCATIONS CUSTOM FIELDS ****/
 /**************************************/
 class wpseolgeocoder{
-  static private $url = '//maps.google.com/maps/api/geocode/json?sensor=false';
+  static private $url = 'http://maps.google.com/maps/api/geocode/json?sensor=false';
   static public function getLocation($address,$key){
-    $url = self::$url.'&address='.urlencode($address);
-    if($key){
-    	$url = 'https:'.$url.'&key='.urlencode($key);
-    }else{
-    	$url = 'http:'.$url;
-    }
+    $url = self::$url.urlencode('&address='.$address);
+    if($key) self::$url.urlencode('&key='.$key);
     $resp_json = self::curl_file_get_contents($url);
     $resp = json_decode($resp_json, true);
     if($resp['status']='OK'){
@@ -232,7 +228,11 @@ function save_location_data($id) {
   update_post_meta( $id, 'wpseol_full_text_address', $address);
   $geocoding_api_key = get_option('wpseol_google_geocoding_api_key');
   $geocoding_api_key = (!empty($geocoding_api_key))? $geocoding_api_key:false;
+<<<<<<< HEAD
   $geocode = wpseolgeocoder::getLocation(trim($address),$geocoding_api_key);
+=======
+  $geocode = wpseolgeocoder::getLocation($address,$geocoding_api_key);
+>>>>>>> use the Google API Keys if provided
 	if($geocode){
 		update_post_meta( $id, 'wpseol_latitude', $geocode['lat']);
 		update_post_meta( $id, 'wpseol_longitude', $geocode['lng']);
