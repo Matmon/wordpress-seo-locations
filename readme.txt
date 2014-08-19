@@ -1,5 +1,5 @@
 === WordPress SEO Locations ===
-Contributors: smleimberg
+Contributors: matmon, smleimberg
 Tags:         schema.org, seo, location, address, map, google
 Stable tag:   0.1.0
 Tested up to: 3.9.1
